@@ -4,7 +4,7 @@ import numpy as np
 from simpleSteganoDCT import SimpleStegano
 import os
 
-st.title("SimpleSteganoDCT")
+st.title("Hidden Pixels (Robust Image Steganography)")
 
 steg = SimpleStegano()
 
