@@ -1,8 +1,6 @@
 import streamlit as st
-import cv2
-import numpy as np
-from simpleSteganoDCT import SimpleStegano
 import os
+from simpleSteganoDCT import SimpleStegano
 
 st.title("Hidden Pixels (Robust Image Steganography)")
 
@@ -10,6 +8,7 @@ steg = SimpleStegano()
 
 tab1, tab2 = st.tabs(["Embed Text", "Extract Text"])
 
+# ==================== Embed Text Tab ====================
 with tab1:
     st.header("Embed Text into an Image")
 
@@ -26,7 +25,7 @@ with tab1:
 
             try:
                 steg.embed_text_steganography("temp_cover.png", secret_text, output_path)
-                st.success(f"Text embedded successfully! Download the image below.")
+                st.success("Text embedded successfully! Download the image below.")
 
                 with open(output_path, "rb") as file:
                     st.download_button(
@@ -44,16 +43,26 @@ with tab1:
                 if os.path.exists("temp_cover.png"):
                     os.remove("temp_cover.png")
 
+# ==================== Extract Text Tab ====================
 with tab2:
     st.header("Extract Text from an Image")
 
-    stego_file = st.file_uploader("Choose a stego image...", type=["png"])
+    stego_file = st.file_uploader("Choose a stego image...", type=["png", "jpg", "jpeg"])
 
     if st.button("Extract Text"):
         if stego_file is not None:
+            # Determine original file extension
+            filename = stego_file.name
+            ext = os.path.splitext(filename)[1].lower()
+
             # Save uploaded file to a temporary location
-            with open("temp_stego.png", "wb") as f:
+            temp_path = "temp_stego.png"
+            with open(temp_path, "wb") as f:
                 f.write(stego_file.getbuffer())
+
+            # If uploaded file was JPEG/JPG, just rename to .png (not actual conversion)
+            if ext in [".jpg", ".jpeg"]:
+                os.rename(temp_path, "temp_stego.png")  # Already saving as PNG filename
 
             try:
                 extracted_text = steg.extract_text_steganography("temp_stego.png")
