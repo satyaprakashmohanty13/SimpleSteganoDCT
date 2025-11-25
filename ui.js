@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const extractButton = document.getElementById('extract-button');
     const imagePreview = document.getElementById('image-preview');
     const log = document.getElementById('log');
+    const downloadLink = document.getElementById('download-link');
 
     let image = null;
 
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 image = new Image();
                 image.onload = () => {
                     imagePreview.src = image.src;
+                    downloadLink.style.display = 'none';
                 };
                 image.src = event.target.result;
             };
@@ -30,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const stegoDataURL = steganography.embed(image, textInput.value);
                 image.src = stegoDataURL;
                 imagePreview.src = stegoDataURL;
+                downloadLink.href = stegoDataURL;
+                downloadLink.download = 'stego-image.png';
+                downloadLink.style.display = 'block';
                 log.textContent = 'Text embedded successfully.';
             } catch (error) {
                 log.textContent = `Error: ${error.message}`;
