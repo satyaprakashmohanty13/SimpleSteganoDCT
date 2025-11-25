@@ -1,0 +1,20 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#image-preview {
+    max-width: 400px;
+    border: 1px solid #ccc;
+}

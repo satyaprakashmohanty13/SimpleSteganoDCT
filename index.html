@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steganography Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Steganography Tool</h1>
+    <div class="container">
+        <div class="controls">
+            <input type="file" id="image-input" accept="image/*">
+            <textarea id="text-input" placeholder="Enter text to hide"></textarea>
+            <button id="embed-button">Embed</button>
+            <button id="extract-button">Extract</button>
+        </div>
+        <div class="output">
+            <img id="image-preview" src="#" alt="Image preview">
+            <p id="log"></p>
+        </div>
+    </div>
+    <script src="reedsolomon.js"></script>
+    <script src="steganography.js"></script>
+    <script src="ui.js"></script>
+</body>
+</html>
